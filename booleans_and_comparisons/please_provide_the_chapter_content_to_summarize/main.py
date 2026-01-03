@@ -26,6 +26,6 @@ qualifies_free_shipping = (purchase_total >= free_shipping_threshold) or is_memb
 needs_manual_review = (not email_verified) or (not phone_verified)
 
 # 5) Score range rule
-valid_score_range = min_score <= score < max_score
+valid_score_range = min_score <= score <= max_score
 
 print(is_adult, can_enter, qualifies_free_shipping, needs_manual_review, valid_score_range)
