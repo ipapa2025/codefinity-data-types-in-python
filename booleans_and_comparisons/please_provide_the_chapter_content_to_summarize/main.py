@@ -14,18 +14,18 @@ min_score = 0
 max_score = 100
 
 # 1) Adult check
-is_adult = age ___ adult_age
+is_adult = age >= adult_age
 
 # 2) Entry rule
-can_enter = is_adult ___ has_id
+can_enter = is_adult and has_id
 
 # 3) Free shipping rule
-qualifies_free_shipping = (purchase_total ___ free_shipping_threshold) ___ is_member
+qualifies_free_shipping = (purchase_total >= free_shipping_threshold) or is_member
 
 # 4) Manual review rule
-needs_manual_review = (___ email_verified) ___ (___ phone_verified)
+needs_manual_review = (not email_verified) or (not phone_verified)
 
 # 5) Score range rule
-valid_score_range = min_score ___ score ___ max_score
+valid_score_range = min_score <= score < max_score
 
 print(is_adult, can_enter, qualifies_free_shipping, needs_manual_review, valid_score_range)
