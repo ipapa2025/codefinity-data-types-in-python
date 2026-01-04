@@ -6,26 +6,26 @@ adult_age = 18
 max_seat_number = 150
 
 # 1) Age as int
-age = int(age_str)
+age = int(age_str.strip())
 
 # 2) ID possession as Boolean from text
-has_id = "yes" in has_id_str.casefold().strip()
+has_id = has_id_str.strip().casefold() == "yes"
 
 # 3) Parse ticket parts by fixed positions
-tier = ticket_code[___:___]             # "VIP"
-seat_number_str = ticket_code[___:___]  # "023"
-zone = ticket_code[___]                 # "A"
+tier = ticket_code[:3]             # "VIP"
+seat_number_str = ticket_code[4:7]  # "023"
+zone = ticket_code[-1]                 # "A"
 
 # 4) Seat number as int
-seat_number = ___(seat_number_str)
+seat_number = int(seat_number_str)
 
 # 5) Rules
-is_adult = age ___ adult_age
-can_enter = has_id ___ is_adult
-vip_perk = tier ___ "VIP"
-member_fastlane = is_member ___ can_enter
-seat_ok = ___ ___ seat_number ___ ___
-entry_granted = can_enter ___ seat_ok
+is_adult = age >= adult_age
+can_enter = has_id and is_adult
+vip_perk = tier == "VIP"
+member_fastlane = is_member and can_enter
+seat_ok = 1 <= seat_number <= max_seat_number
+entry_granted = can_enter and seat_ok
 
 # 6) Summary line
 summary = f"{tier}-{seat_number_str}-{zone} | age={age} | enter={entry_granted} | vip={vip_perk} | fastlane={member_fastlane}"
